@@ -1,5 +1,5 @@
 {
-    "name": "taskrunnercode",
+    "name": "forbeslindesay-taskrunner",
     "displayName": "Task Runner",
     "description": "VS Code extension to view and run tasks from Explorer pane",
     "icon": "check.png",
@@ -24,24 +24,77 @@
         "color": "#d7ede1"
     },
     "activationEvents": [
-        "*"
+        "onView:forbeslindesay-taskrunner"
     ],
     "main": "./out/extension",
     "contributes": {
+        "configuration": {
+            "title": "Task Runner",
+            "properties": {
+                "forbeslindesay-taskrunner.source": {
+                    "type": "string",
+                    "default": "*",
+                    "description": "The type of tasks to show. Use \"Workspace\" to show only tasks defined in tasks.json. Use \"*\" to show all tasks. Separate multiple task types with a comma"
+                },
+                "forbeslindesay-taskrunner.prefix": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A prefix to filter tasks by."
+                },
+                "forbeslindesay-taskrunner.separator": {
+                    "type": "string",
+                    "default": ":| - |\\/|\\\\",
+                    "description": "The separator to use when grouping tasks."
+                },
+                "forbeslindesay-taskrunner.auto-expand-limit": {
+                    "type": "number",
+                    "default": 5,
+                    "description": "Maximum number of tasks in a group to auto-expand sub-groups."
+                }
+            }
+        },
         "views": {
             "explorer": [
                 {
-                    "id": "taskOutline",
+                    "id": "forbeslindesay-taskrunner",
                     "name": "Task Runner"
                 }
             ]
         },
         "commands": [
             {
-                "command": "taskOutline.executeTask",
-                "title": "Execute"
+                "command": "forbeslindesay-taskrunner.refresh",
+                "title": "Refresh",
+                "icon": {
+                    "light": "assets/light/refresh.svg",
+                    "dark": "assets/dark/refresh.svg"
+                }
+            },
+            {
+                "command": "forbeslindesay-taskrunner.show-task",
+                "title": "Show",
+                "icon": {
+                    "light": "assets/information-circle.png",
+                    "dark": "assets/information-circle.png"
+                }
             }
-        ]
+        ],
+        "menus": {
+            "view/title": [
+              {
+                "command": "forbeslindesay-taskrunner.refresh",
+                "when": "view == forbeslindesay-taskrunner",
+                "group": "navigation"
+              }
+            ],
+            "view/item/context": [
+                {
+                    "command": "forbeslindesay-taskrunner.show-task",
+                    "when": "viewItem == running",
+                    "group": "inline"
+                }
+            ]
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
@@ -53,8 +106,8 @@
     "devDependencies": {
         "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.25",
-        "typescript": "^3.0.3",
-        "vscode": "^1.1.21",
-        "tslint": "^5.8.0"
+        "tslint": "^5.8.0",
+        "typescript": "^4.1.3",
+        "vscode": "^1.1.37"
     }
 }

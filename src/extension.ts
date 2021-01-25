@@ -1,22 +1,25 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { TaskTreeDataProvider } from './taskProvider'
+import { TaskTreeDataProvider, TreeTask } from './taskProvider'
 
 export function activate(context: vscode.ExtensionContext) {
 
 	const taskTreeDataProvider = new TaskTreeDataProvider(context);
 
-	vscode.window.registerTreeDataProvider('taskOutline', taskTreeDataProvider);
-	vscode.commands.registerCommand('taskOutline.refresh', () => taskTreeDataProvider.refresh());
+	vscode.window.registerTreeDataProvider('forbeslindesay-taskrunner', taskTreeDataProvider);
+	vscode.commands.registerCommand('forbeslindesay-taskrunner.refresh', () => taskTreeDataProvider.refresh());
 
-	vscode.commands.registerCommand('taskOutline.executeTask', function(task) {
-		console.log(task);	
-		vscode.tasks.executeTask(task).then(function (value) {
-			return value;
-		}, function(e) {
-			console.error('I am error');
-		});
+	vscode.commands.registerCommand('forbeslindesay-taskrunner.start-task', (task: vscode.Task) => {
+		vscode.tasks.executeTask(task);
+	});
+	vscode.commands.registerCommand('forbeslindesay-taskrunner.stop-task', (task: vscode.TaskExecution) => {
+		task.terminate();
+	});
+	vscode.commands.registerCommand('forbeslindesay-taskrunner.show-task', (task: TreeTask) => {
+		if (task.terminal) {
+			task.terminal.show()
+		}
 	});
 }
 
