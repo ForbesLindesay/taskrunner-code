@@ -3,8 +3,8 @@
     "displayName": "Task Runner",
     "description": "VS Code extension to view and run tasks from Explorer pane",
     "icon": "check.png",
-    "version": "0.2.0",
-    "publisher": "SanaAjani",
+    "version": "1.0.0",
+    "publisher": "forbeslindesay",
     "repository": {
         "type": "git",
         "url": "https://github.com/sana-ajani/taskrunner-code.git"
@@ -81,11 +81,11 @@
         ],
         "menus": {
             "view/title": [
-              {
-                "command": "forbeslindesay-taskrunner.refresh",
-                "when": "view == forbeslindesay-taskrunner",
-                "group": "navigation"
-              }
+                {
+                    "command": "forbeslindesay-taskrunner.refresh",
+                    "when": "view == forbeslindesay-taskrunner",
+                    "group": "navigation"
+                }
             ],
             "view/item/context": [
                 {
@@ -108,6 +108,7 @@
         "@types/node": "^8.10.25",
         "tslint": "^5.8.0",
         "typescript": "^4.1.3",
+        "vsce": "^1.85.0",
         "vscode": "^1.1.37"
     }
 }
